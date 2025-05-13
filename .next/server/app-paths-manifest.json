@@ -1,3 +1,4 @@
 {
-  "/page": "app/page.js"
+  "/pre-welness-day-reg/page": "app/pre-welness-day-reg/page.js",
+  "/pre-welness-day-reg/registration/page": "app/pre-welness-day-reg/registration/page.js"
 }
