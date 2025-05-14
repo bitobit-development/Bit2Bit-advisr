@@ -1,4 +1,6 @@
 {
-  "/pre-welness-day-reg/page": "app/pre-welness-day-reg/page.js",
-  "/pre-welness-day-reg/registration/page": "app/pre-welness-day-reg/registration/page.js"
+  "/pre-welness-day-reg/registration/page": "app/pre-welness-day-reg/registration/page.js",
+  "/pre-welness-day-reg/verify-otp/page": "app/pre-welness-day-reg/verify-otp/page.js",
+  "/pre-welness-day-reg/thank-you/page": "app/pre-welness-day-reg/thank-you/page.js",
+  "/pre-welness-day-reg/failed/page": "app/pre-welness-day-reg/failed/page.js"
 }

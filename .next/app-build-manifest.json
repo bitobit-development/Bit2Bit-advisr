@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/pre-welness-day-reg/page": [
+    "/pre-welness-day-reg/registration/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/pre-welness-day-reg/page.js"
+      "static/chunks/app/pre-welness-day-reg/registration/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,10 +11,20 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/pre-welness-day-reg/registration/page": [
+    "/pre-welness-day-reg/verify-otp/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/pre-welness-day-reg/registration/page.js"
+      "static/chunks/app/pre-welness-day-reg/verify-otp/page.js"
+    ],
+    "/pre-welness-day-reg/thank-you/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pre-welness-day-reg/thank-you/page.js"
+    ],
+    "/pre-welness-day-reg/failed/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pre-welness-day-reg/failed/page.js"
     ]
   }
 }

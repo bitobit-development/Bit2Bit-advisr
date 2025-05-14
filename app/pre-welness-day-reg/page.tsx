@@ -3,6 +3,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image';
 
 export default function HomePage() {
   const [qrCode, setQrCode] = useState<string | null>(null)
@@ -56,10 +57,28 @@ export default function HomePage() {
   }, [isClient]) // This runs only when `isClient` is true
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4">
-      <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold mb-4 text-gray-800">Lets get to Diamond – Scan to Reserve</h1>
-        <p className="text-sm text-gray-600 mb-6">
+    <div className="min-h-screen flex items-center justify-center px-4">
+        <div
+          className="bg-white p-8 rounded-xl max-w-md w-full text-center relative pt-20"
+          style={{
+            boxShadow: '0 4px 10px rgba(230, 0, 126, 0.25)', // Discovery pink shadow (#E6007E)
+          }}
+        >
+          {/* Vitality Logo at top-left */}
+          <Image
+            src="/Vitality-Pink-logo.svg"
+            alt="Vitality Logo"
+            width={100}  // Adjust size as needed
+            height={35}
+            className="absolute top-4 left-4"
+            priority
+          />
+
+        <h1 className="text-3xl font-semibold text-[#E6007E] mb-4 uppercase">
+          Let’s Get to Diamond – Scan to Reserve
+        </h1>
+
+        <p className="text-base text-[#666666] mb-6">
           Register now and earn up to 22,500 Vitality points to boost your Vitality status. Scan the QR code with your phone or tap the button below.
         </p>
 
@@ -72,14 +91,14 @@ export default function HomePage() {
         )}
 
         {isClient && (
-          <a
-            href={`${window.location.origin}/pre-welness-day-reg/registration`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 px-4 py-2 bg-pink-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            Register Now
-          </a>
+         <a
+           href={`${window.location.origin}/pre-welness-day-reg/registration`}
+           target="_blank"
+           rel="noopener noreferrer"
+           className="inline-flex items-center justify-center w-full h-10 rounded-md bg-[#E6007E] hover:bg-[#D81B60] text-white text-sm font-semibold transition-colors duration-300 mt-4"
+         >
+           Register Now
+         </a>
         )}
       </div>
     </div>

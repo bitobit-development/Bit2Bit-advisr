@@ -5,6 +5,8 @@ import { CheckCircle2, Phone, Home as HomeIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { FaWhatsapp } from 'react-icons/fa';
+import  Image from 'next/image';
 
 /**
  * Lead data shape stored in localStorage
@@ -31,17 +33,22 @@ export default function ThankYouPage() {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER!;
 
   // Progress steps
-  const steps = ['Sign Up', 'Verify OTP', 'Complete'];
+  const STEP_LABELS = [
+    'Register Details',
+    'Verify Your Number',
+    'All Set!'
+  ];
   const currentStep = 2;
 
   // Helpers for progress
-  const stepCircle = (active: boolean) =>
-    cn(
-      'w-8 h-8 mx-auto mb-1 rounded-full flex items-center justify-center text-white text-sm font-bold',
-      active ? 'bg-blue-600' : 'bg-gray-300'
-    );
-  const stepLabel = (active: boolean) =>
-    cn('text-sm', active ? 'text-pink-600 font-medium' : 'text-gray-500');
+  const stepCircle = (active: boolean) => cn(
+    'w-8 h-8 mx-auto mb-1 rounded-full flex items-center justify-center text-white text-sm font-bold',
+    active ? 'bg-blue-600' : 'bg-gray-300'
+  );
+  const stepLabel = (active: boolean) => cn(
+    'text-sm leading-tight', // reduced line-height for less gap
+    active ? '' : 'text-gray-500'
+  );
 
   // Build WhatsApp link with proper line breaks
   const whatsappMessage = lead
@@ -168,16 +175,33 @@ export default function ThankYouPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4">
-      <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
+    <div className="min-h-screen flex items-center justify-center px-4">
+        <div
+          className="bg-white p-8 rounded-xl max-w-md w-full text-center relative pt-16"
+          style={{ boxShadow: '0 4px 10px rgba(230, 0, 126, 0.25)' }}
+        >
+          {/* Vitality Logo at top-left */}
+          <Image
+            src="/Vitality-Pink-logo.svg"
+            alt="Vitality Logo"
+            width={100}
+            height={35}
+            className="absolute top-4 left-4"
+            priority
+          />
         {/* Progress */}
-        <div className="flex justify-between mb-6">
-          {steps.map((step, idx) => {
-            const active = idx === currentStep;
+        <div className="w-full max-w-[700px] mx-auto flex justify-between mb-6 pt-3">
+          {STEP_LABELS.map((label, idx) => {
+            const isActive = idx === currentStep;
             return (
-              <div key={idx} className="flex-1 text-center">
-                <div className={stepCircle(active)}>{idx + 1}</div>
-                <span className={stepLabel(active)}>{step}</span>
+              <div key={label} className="flex-1 text-center px-2"> {/* Added px-2 here */}
+                <div className={stepCircle(isActive)}>{idx + 1}</div>
+                <span
+                  className={cn(stepLabel(isActive), 'whitespace-nowrap')}
+                  style={{ color: isActive ? '#EB2660' : undefined }}
+                >
+                  {label}
+                </span>
               </div>
             );
           })}
@@ -185,22 +209,31 @@ export default function ThankYouPage() {
 
         {/* Success */}
         <CheckCircle2 className="mx-auto text-green-600 w-16 h-16 mb-4" />
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">Thank you!</h1>
-        <p className="text-gray-600 text-sm mb-6 whitespace-pre-line text-center">
+        <h1 className="text-3xl font-semibold text-[#eb2660] mb-4 text-center">
+          Thank You!
+        </h1>
+
+        <p className="text-base text-[#666666] mb-6 whitespace-pre-line text-center">
           Congratulations—your spot is secured!<br />
           Look out for our message with all the details.
         </p>
 
-        <Button onClick={() => { clearAll(); router.push(BROKER_WEB); }} className="w-full mb-4 flex items-center justify-center gap-2">
+        <Button
+          onClick={() => { clearAll(); router.push(BROKER_WEB); }}
+          className="w-full h-10 rounded-md flex items-center justify-center gap-2 bg-[#eb2660] hover:bg-[#D81B60] text-white font-semibold transition-colors duration-300 mb-4"
+        >
           <HomeIcon className="w-5 h-5" />
           Explore Our Services
         </Button>
 
         {lead && (
-          <Button onClick={() => window.open(whatsappLink, '_blank')} className="w-full flex items-center justify-center gap-2 bg-green-600 text-white hover:bg-green-700">
-            <Phone className="w-5 h-5" />
-            WhatsApp Carla
-          </Button>
+      <Button
+        onClick={() => window.open(whatsappLink, '_blank')}
+        className="w-full h-10 rounded-md flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold transition-colors duration-300"
+      >
+        <FaWhatsapp className="w-5 h-5" />
+        WhatsApp Carla
+      </Button>
         )}
       </div>
     </div>

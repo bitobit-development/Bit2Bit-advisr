@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { User, UserPlus, Mail, Smartphone } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 // ── Product options ──
 const PRODUCT_OPTIONS = [
@@ -142,14 +144,19 @@ export default function Page() {
     active ? 'bg-blue-600' : 'bg-gray-300'
   );
   const stepLabel = (active: boolean) => cn(
-    'text-sm', active ? 'text-pink-600 font-medium' : 'text-gray-500'
+    'text-sm leading-tight', // reduced line-height for less gap
+    active ? '' : 'text-gray-500'
   );
 
-  const STEP_LABELS = ['Registration', 'OTP Verification', 'Success'];
+  const STEP_LABELS = [
+    'Register Details',
+    'Verify Your Number',
+    'All Set!'
+  ];
   const currentStep = 0;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       {/* Fee Modal */}
       {showFeeModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -166,32 +173,56 @@ export default function Page() {
           </div>
         </div>
       )}
-
-      <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
+        <div
+          className="bg-white p-8 rounded-xl max-w-md w-full text-center relative pt-16"
+          style={{ boxShadow: '0 4px 10px rgba(230, 0, 126, 0.25)' }}
+        >
+          {/* Vitality Logo at top-left */}
+          <Image
+            src="/Vitality-Pink-logo.svg"
+            alt="Vitality Logo"
+            width={100}
+            height={35}
+            className="absolute top-4 left-4"
+            priority
+          />
         {/* Progress */}
-        <div className="flex justify-between mb-6">
-          {STEP_LABELS.map((label, idx) => (
-            <div key={label} className="flex-1 text-center">
-              <div className={stepCircle(idx === currentStep)}>{idx + 1}</div>
-              <span className={stepLabel(idx === currentStep)}>{label}</span>
-            </div>
-          ))}
-        </div>
+          <div className="w-full max-w-[700px] mx-auto flex justify-between mb-6 pt-3">
+            {STEP_LABELS.map((label, idx) => {
+              const isActive = idx === currentStep;
+              return (
+                <div key={label} className="flex-1 text-center px-2"> {/* Added px-2 here */}
+                  <div className={stepCircle(isActive)}>{idx + 1}</div>
+                  <span
+                    className={cn(stepLabel(isActive), 'whitespace-nowrap')}
+                    style={{ color: isActive ? '#EB2660' : undefined }}
+                  >
+                    {label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
 
-        <h1 className="text-2xl font-bold mb-2">Get Ready for Discovery Wellness Day: Register Now!</h1>
-        <p className="text-sm text-gray-600 mb-6">
-          Don’t miss out on those Vitality points! Enter your details now to reserve your spot.
+        <h1 className="text-3xl font-semibold text-[#EB2660] mb-4 uppercase">
+          Secure Your Spot at Discovery Wellness Day & Boost Your Vitality!
+        </h1>
+        <p className="text-base text-[#666666] mb-6">
+          Don’t miss your chance to earn Vitality points! Enter your details now to reserve your spot.
         </p>
+
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
-          <div className="relative">
+          <div className="relative text-left">
             <Label htmlFor="name">Name</Label>
-            <User className="absolute left-2 top-8 text-[#db2777]" />
+            <User className="absolute left-2 top-8 text-[#EB2660]" />
             <Input
               id="name"
+              name="given-name"
               type="text"
               inputMode="text"
+              autoComplete="given-name"
               pattern="[A-Za-z\s]+"
               placeholder="e.g. John"
               title="Letters and spaces only"
@@ -204,13 +235,15 @@ export default function Page() {
           </div>
 
           {/* Surname */}
-          <div className="relative">
+          <div className="relative text-left">
             <Label htmlFor="surname">Surname</Label>
-            <UserPlus className="absolute left-2 top-8 text-[#db2777]" />
+            <UserPlus className="absolute left-2 top-8 text-[#EB2660]" />
             <Input
               id="surname"
+              name="family-name"
               type="text"
               inputMode="text"
+              autoComplete="family-name"
               pattern="[A-Za-z\s]+"
               placeholder="e.g. Smith"
               title="Letters and spaces only"
@@ -223,13 +256,15 @@ export default function Page() {
           </div>
 
           {/* Email */}
-          <div className="relative">
+          <div className="relative text-left">
             <Label htmlFor="email">Email Address</Label>
-            <Mail className="absolute left-2 top-8 text-[#db2777]" />
+            <Mail className="absolute left-2 top-8 text-[#EB2660]" />
             <Input
               id="email"
+              name="email"
               type="email"
               inputMode="email"
+              autoComplete="email"
               placeholder="my@wellness.co.za"
               title="Please enter a valid email address"
               className="pl-10"
@@ -241,13 +276,15 @@ export default function Page() {
           </div>
 
           {/* Mobile */}
-          <div className="relative">
+          <div className="relative text-left">
             <Label htmlFor="mobile">Mobile Number</Label>
-            <Smartphone className="absolute left-2 top-8 text-[#db2777]" />
+            <Smartphone className="absolute left-2 top-8 text-[#EB2660]" />
             <Input
               id="mobile"
+              name="tel"
               type="tel"
-              inputMode="numeric"
+              inputMode="tel"
+              autoComplete="tel"
               className="pl-10"
               placeholder="e.g. +27 71 234 5678"
               value={form.mobile}
@@ -257,19 +294,33 @@ export default function Page() {
             {errors.mobile && <p className="text-xs text-red-600 mt-1">{errors.mobile}</p>}
           </div>
 
+
           {/* Discovery Client? */}
           <div className="flex items-center gap-4">
             <Label>Discovery Client?</Label>
             <button
               type="button"
-              className={yesNoBtn(form.isDiscoveryCustomer === true)}
+              className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300 ${
+                form.isDiscoveryCustomer === true
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 text-[#666666] hover:bg-gray-300'
+              }`}
               onClick={() => setForm({ ...form, isDiscoveryCustomer: true, hasVitality: null })}
-            >Yes</button>
+            >
+              Yes
+            </button>
+
             <button
               type="button"
-              className={yesNoBtn(form.isDiscoveryCustomer === false)}
+              className={`px-6 py-2 rounded-md font-semibold transition-colors duration-300 ${
+                form.isDiscoveryCustomer === false
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 text-[#666666] hover:bg-gray-300'
+              }`}
               onClick={handleDiscoveryNo}
-            >No</button>
+            >
+              No
+            </button>
           </div>
           {errors.isDiscoveryCustomer && (
             <p className="text-xs text-red-600 mt-1">{errors.isDiscoveryCustomer}</p>
@@ -281,7 +332,11 @@ export default function Page() {
               <Label>Have Vitality?</Label>
               <button
                 type="button"
-                className={yesNoBtn(form.hasVitality === true)}
+                className={`px-6 h-10 rounded-md font-semibold transition-colors duration-300 ${
+                  form.hasVitality === true
+                    ? 'bg-black text-white'
+                    : 'bg-gray-200 text-[#666666] hover:bg-gray-300'
+                }`}
                 onClick={() => setForm(f => ({
                   ...f,
                   hasVitality: true,
@@ -289,16 +344,25 @@ export default function Page() {
                     ? f.products
                     : [...f.products, 'wellness']
                 }))}
-              >Yes</button>
+              >
+                Yes
+              </button>
+
               <button
                 type="button"
-                className={yesNoBtn(form.hasVitality === false)}
+                className={`px-6 h-10 rounded-md font-semibold transition-colors duration-300 ${
+                  form.hasVitality === false
+                    ? 'bg-black text-white'
+                    : 'bg-gray-200 text-[#666666] hover:bg-gray-300'
+                }`}
                 onClick={() => setForm(f => ({
                   ...f,
                   hasVitality: false,
                   products: f.products.filter(p => p !== 'wellness')
                 }))}
-              >No</button>
+              >
+                No
+              </button>
               {errors.hasVitality && <p className="text-xs text-red-600 mt-1">{errors.hasVitality}</p>}
             </div>
           )}
@@ -306,7 +370,7 @@ export default function Page() {
           {/* Products */}
           {form.isDiscoveryCustomer && form.hasVitality !== null && (
             <div>
-              <Label className="mb-1 block">My Discovery Products</Label>
+              <Label className="mb-3 block">My Discovery Products</Label>
               <div className="grid gap-3">
                 {PRODUCT_OPTIONS.filter(o => (!o.requiresVitality || form.hasVitality)).map(o => {
                   const checked = form.products.includes(o.value);
@@ -343,9 +407,21 @@ export default function Page() {
           </div>
           {errors.consent && <p className="text-xs text-red-600 -mt-2">{errors.consent}</p>}
 
-          <Button type="submit" className="w-full mt-2 flex items-center justify-center gap-2" disabled={submitting}>
-            {submitting ? 'Processing…' : 'Continue'}
+          <Button
+            type="submit"
+            className="w-full h-10 rounded-md mt-2 flex items-center justify-center gap-2 bg-[#E6007E] hover:bg-[#D81B60] text-white font-semibold transition-colors duration-300"
+            disabled={submitting}
+          >
+            {submitting ? (
+              <>
+                <Loader2 className="animate-spin w-4 h-4" />
+                Processing…
+              </>
+            ) : (
+              'Continue'
+            )}
           </Button>
+
         </form>
       </div>
     </div>
