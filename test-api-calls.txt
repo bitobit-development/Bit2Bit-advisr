@@ -1,0 +1,40 @@
+curl -X POST http://localhost:3000/api/send-vitality-email \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "haim.derazon@gmail.com",
+    "name": "Haim",
+    "DiscoveryCustomer": true,
+    "hasVitality": true,
+    "leadNumber": "7655"
+  }'
+
+%  
+curl -X POST http://localhost:3000/api/send-vitality-email \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "haim@bit2bit.co.za",
+  "name": "Haim",
+  "DiscoveryCustomer": true,
+  "hasVitality": true,
+  "leadNumber": "7655"
+}'
+
+curl -X POST http://localhost:3000/api/send-vitality-email \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "haim@bit2bit.co.za",
+  "name": "Haim",
+  "DiscoveryCustomer": false,
+  "hasVitality": false,
+  "leadNumber": "7655"
+}'
+
+curl -X POST http://localhost:3000/api/send-vitality-email \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "haim@bit2bit.co.za",
+  "name": "Haim",
+  "DiscoveryCustomer": true,
+  "hasVitality": false,
+  "leadNumber": "7655"
+}'

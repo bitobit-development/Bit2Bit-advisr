@@ -409,7 +409,7 @@ export default function Page() {
 
           <Button
             type="submit"
-            className="w-full h-10 rounded-md mt-2 flex items-center justify-center gap-2 bg-[#E6007E] hover:bg-[#D81B60] text-white font-semibold transition-colors duration-300"
+            className="w-full h-10 rounded-md mt-2 flex items-center justify-center gap-2 bg-[#eb2660] hover:bg-[#D81B60] text-white font-semibold transition-colors duration-300"
             disabled={submitting}
           >
             {submitting ? (

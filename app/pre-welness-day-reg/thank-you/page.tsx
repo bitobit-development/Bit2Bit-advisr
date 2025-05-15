@@ -1,3 +1,4 @@
+// app/pre-welness-day-reg/thank-you/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -94,7 +95,9 @@ export default function ThankYouPage() {
     (async () => {
       const filename = `${lead.name}_${lead.surname}.vcf`;
       const vcardPath = `app/vcards/${filename}`;
+
       try {
+        // Generate vCard
         const createResp = await fetch('/api/create-contact-card', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -111,53 +114,71 @@ export default function ThankYouPage() {
           }),
         });
         if (!createResp.ok) throw new Error('vCard generation failed');
-        console.log('vCard generated:', filename);
 
-        const emailResp = await fetch('/api/send-email', {
+        // Send email with details (includes VCF deletion note)
+        const response = await fetch('/api/send-email-with-details', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             to: BROKER_EMAIL,
-            subject: `Contact Card for ${lead.name} ${lead.surname}`,
-            text: `Hi Carla, please find attached the contact card for ${lead.name} ${lead.surname}.`,
+            subject: `Message from Advisr - New Customer Information: ${lead.name} ${lead.surname}`,
+            templateData: {
+              name: lead.name,
+              surname: lead.surname,
+              email: lead.email || 'N/A',
+              mobile: lead.mobile,
+              isDiscoveryCustomer: lead.isDiscoveryCustomer ? 'Yes' : 'No',
+              hasVitality: lead.hasVitality ? 'Yes' : 'No',
+              products: lead.products.join(', ') || 'None',
+              consent: lead.consent ? 'Yes' : 'No',
+              lead_code: lead.lead_code,
+              note: "**The attached vCard file has been permanently deleted from the server.**"
+            },
             attachmentPath: vcardPath,
           }),
         });
-        const emailJson = await emailResp.json();
-        if (!emailResp.ok || !emailJson.success) {
-          console.error('Email vCard failed:', emailJson.error || emailJson);
-          throw new Error('Emailing vCard failed');
-        }
-        console.log('Email vCard sent successfully');
 
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || 'Email send error');
+        }
+
+        console.log('Detailed email sent successfully.');
+
+        // 4) send the client their Vitality email
+        const custResp = await fetch('/api/send-vitality-email', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            to: lead.email,
+            name: lead.name,
+            DiscoveryCustomer: lead.isDiscoveryCustomer,
+            hasVitality: lead.hasVitality,
+            leadNumber: lead.lead_code,
+          }),
+        });
+        const custResult = await custResp.json();
+        if (!custResp.ok || !custResult.success) {
+          console.error('Customer Vitality email failed:', custResult.error);
+        } else {
+          console.log('Vitality email sent to client');
+        }
+
+        // Delete vCards from server
         const deleteResp = await fetch('/api/empty-vcard-lib', { method: 'POST' });
         const deleteJson = await deleteResp.json();
         if (!deleteResp.ok || !deleteJson.success) {
-          console.error('Deleting vCards failed:', deleteJson.error || deleteJson);
-          throw new Error('Deleting vCards failed');
+          throw new Error(deleteJson.error || 'Deleting vCards failed');
         }
+
         console.log('Deleted vCard files count:', deleteJson.deleted);
 
-        const confirmResp = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: BROKER_EMAIL,
-            subject: `vCard Removed: ${lead.name} ${lead.surname}`,
-            text: `The contact card file ${filename} for ${lead.name} ${lead.surname} (code ${lead.lead_code}) was sent and ${deleteJson.deleted} files deleted from server.`,
-          }),
-        });
-        const confirmJson = await confirmResp.json();
-        if (!confirmResp.ok || !confirmJson.success) {
-          console.error('Confirmation email failed:', confirmJson.error || confirmJson);
-        } else {
-          console.log('Confirmation email sent');
-        }
       } catch (err: any) {
         console.error('Error in vCard/email workflow:', err.message || err);
       }
     })();
-  }, [lead]);
+  }, [lead, BROKER_EMAIL]);
+
 
   // Clear storage on unload
   const clearAll = () => {

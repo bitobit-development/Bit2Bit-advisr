@@ -122,7 +122,7 @@ function VerifyOtpContent() {
     // const carlaNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
     const smsMessage =
       `Hi ${leadInfo.name}, your ref no. is ${lead_code}. ` +
-      `See you at the Wellness Day!\n\nCarla Prinsloo (0823292438)\nYour Senior Financial Advisor\nDiscovery LTD.`;
+      `See you at the Wellness Day!\n\nCarla Prinsloo (0829215785)\nYour Senior Financial Advisor\nDiscovery LTD.`;
 
     await fetch('/api/send_sms', {
       method: 'POST',
@@ -176,7 +176,7 @@ function VerifyOtpContent() {
             })}
           </div>
 
-        <h1 className="text-3xl font-semibold text-[#E6007E] mb-4">
+        <h1 className="text-3xl font-semibold text-[#eb2660] mb-4 uppercase">
           Verify OTP
         </h1>
 

@@ -74,7 +74,7 @@ export default function HomePage() {
             priority
           />
 
-        <h1 className="text-3xl font-semibold text-[#E6007E] mb-4 uppercase">
+        <h1 className="text-3xl font-semibold text-[#eb2660] mb-4 uppercase">
           Let’s Get to Diamond – Scan to Reserve
         </h1>
 
@@ -95,7 +95,7 @@ export default function HomePage() {
            href={`${window.location.origin}/pre-welness-day-reg/registration`}
            target="_blank"
            rel="noopener noreferrer"
-           className="inline-flex items-center justify-center w-full h-10 rounded-md bg-[#E6007E] hover:bg-[#D81B60] text-white text-sm font-semibold transition-colors duration-300 mt-4"
+           className="inline-flex items-center justify-center w-full h-10 rounded-md bg-[#eb2660] hover:bg-[#D81B60] text-white text-sm font-semibold transition-colors duration-300 mt-4"
          >
            Register Now
          </a>

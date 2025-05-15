@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vitality Wellness Day Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 10px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+    .mail-body
+    {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(235, 38, 96, 0.25);
+      text-align: left;
+    }
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    h1 {
+      color: #EB2660;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #EB2660;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    p, li, span, a {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #666666;
+    }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 30px;
+      list-style: none;
+    }
+    ul li {
+      background: url("{{image_disc_bullet}}") no-repeat left center;
+      background-size: 12px 12px;
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+    .footer {
+      color: #666666;
+      font-size: 10px;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 1px;
+    }
+    .footer span, .footer a {
+      display: inline;
+      font-size: 10px;
+      color: #666666;
+    }
+    .footer img {
+      width: 10px;
+      height: 10px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .disclaimer {
+      font-size: 8px;
+      color: #666666;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.4;
+      white-space: pre-line;
+    }
+    .download-link {
+      color: #EB2660;
+      padding: 2px 4px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+    }
+    .download-link:hover {
+      color: #000000;
+      padding: 2px 4px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img
+      class="logo"
+      src="{{domain}}/{{image_vitality_disc}}"
+      alt="Vitality Logo"
+      onerror="this.onerror=null;this.src='{{image_vitality}}';"
+    />
+
+    <h1>{{header}}</h1>
+
+    <p class="mail-body">{{body}}</p>
+
+    <p>
+      <img src="{{icon_download}}" alt="Download Icon" style="vertical-align:middle; width:14px; height:14px; margin-right:6px;" />
+      Download the latest Vitality benefits –
+      <a href="{{domain}}/vitality-brochures/vitality-2025-brochure.pdf" class="download-link">Click here</a>
+    </p>
+
+    <div class="footer">
+      <span><img src="{{icon_user}}" alt="User Icon" /> Carla Prinsloo</span> |
+      <span><img src="{{icon_briefcase}}" alt="Briefcase Icon" /> Senior Financial Advisor</span> |
+      <span><img src="{{icon_phone}}" alt="Phone Icon" /> 0823292438</span> |
+      <span><img src="{{icon_mail}}" alt="Mail Icon" /> <a href="mailto:carla.prinloo@dfc.discovery.co.za">carla.prinloo@dfc.discovery.co.za</a></span> |
+      <span><img src="{{icon_globe}}" alt="Globe Icon" /> <a href="https://www.carlaprinsloo.co.za/">www.carlaprinsloo.co.za</a></span> 
+
+    </div>
+
+    <div class="disclaimer">{{disclaimer}}</div>
+  </div>
+</body>
+</html>
