@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(235, 38, 96, 0.25);
+    }
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #EB2660;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    table tr:last-child td {
+      border-bottom: none;
+    }
+    .note {
+      font-size: 12px;
+      color: #EB2660;
+      margin-top: 20px;
+      font-style: italic;
+      text-align: center;
+    }
+    .disclaimer {
+      font-size: 10px;
+      color: #000;
+      margin-top: 30px; /* clear gap */
+      text-align: center;
+      line-height: 1.4;
+      white-space: pre-line; /* Preserve new lines */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://bit-2-leads.replit.app/Vitality-Pink-logo.svg" alt="Vitality Logo" style="display: block; margin-left: 0;" />
+
+    <h2>New Customer Information</h2>
+    <table>
+      <tr>
+        <td><strong>Name:</strong></td>
+        <td>{{name}}</td>
+      </tr>
+      <tr>
+        <td><strong>Surname:</strong></td>
+        <td>{{surname}}</td>
+      </tr>
+      <tr>
+        <td><strong>Email:</strong></td>
+        <td>{{email}}</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile:</strong></td>
+        <td>{{mobile}}</td>
+      </tr>
+      <tr>
+        <td><strong>Discovery Customer:</strong></td>
+        <td>{{isDiscoveryCustomer}}</td>
+      </tr>
+      <tr>
+        <td><strong>Has Vitality:</strong></td>
+        <td>{{hasVitality}}</td>
+      </tr>
+      <tr>
+        <td><strong>Products:</strong></td>
+        <td>{{products}}</td>
+      </tr>
+      <tr>
+        <td><strong>Consent:</strong></td>
+        <td>{{consent}}</td>
+      </tr>
+      <tr>
+        <td><strong>Lead Code:</strong></td>
+        <td>{{lead_code}}</td>
+      </tr>
+    </table>
+    <p class="note">{{note}}</p>
+
+
+    <!-- Clearly add a gap before disclaimer -->
+    <div class="disclaimer">{{disclaimer}}</div>
+  </div>
+</body>
+</html>
